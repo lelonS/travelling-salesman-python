@@ -25,7 +25,6 @@ class Salesman:
             x_sq = (city_coords_2[0] - city_coords_1[0]) ** 2
             y_sq = (city_coords_2[1] - city_coords_1[1]) ** 2
             total_squared += x_sq + y_sq
-        self.distance_squared = total_squared
 
         # Add trip back from last point to the first point
         if come_back:
@@ -38,3 +37,5 @@ class Salesman:
             x_sq = (city_coords_2[0] - city_coords_1[0]) ** 2
             y_sq = (city_coords_2[1] - city_coords_1[1]) ** 2
             total_squared += x_sq + y_sq
+
+        self.distance_squared = total_squared
