@@ -1,6 +1,7 @@
 import pygame
 import math
 import random
+from salesman import Salesman
 
 
 def update():
