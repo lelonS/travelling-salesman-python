@@ -1,7 +1,7 @@
 import pygame
 import math
 import random
-from salesman import Salesman
+from salesman import Population
 from bruteforce import Bruteforce
 
 pygame.init()
@@ -46,6 +46,8 @@ HEIGHT = 500
 
 # Variables
 cities = []
+population_size = 100
+population = None
 
 # Loop
 running = True
@@ -73,10 +75,11 @@ while running:
             draw_cities(cities)
         elif pygame.mouse.get_pressed()[2]:
             all_cities_added = True
+            population = Population(population_size, cities)
 
     # Stuff
     if all_cities_added:
-        draw_route(list(range(len(cities))), cities)
+        draw_route(population.generate_next_population(0.4).route, cities)
 
     update()
 
