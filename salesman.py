@@ -39,6 +39,7 @@ class Salesman:
 
     def combine_with(self, other):
         # TODO: MAKE SURE HAS SAME AMOUNT OF CITITES
+        # Mutation
         new_route = []
         last_from_self = True
         for i in range(len(self.route)):
@@ -55,3 +56,10 @@ class Salesman:
                         last_from_self = not last_from_self
                         break
         return new_route
+
+
+class Population:
+    population = []
+
+    def __init__(self, size):
+        pass
