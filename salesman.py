@@ -4,7 +4,7 @@ import random
 
 class Salesman:
     route = []
-    distance_squared = -1
+    dist_sq = -1
 
     def __init__(self, amount_cities, random_path=True, route=[]):
         # Create from premade route
@@ -18,6 +18,20 @@ class Salesman:
             self.route.append(i)
         if random_path:
             random.shuffle(self.route)
+
+    def swap(self, a, b):
+        temp = self.route[a]
+        self.route[a] = self.route[b]
+        self.route[b] = temp
+
+    def swap_random(self):
+        if len(self.route) < 2:
+            return
+        i_1 = random.randint(0, len(self.route) - 1)
+        i_2 = random.randint(0, len(self.route) - 1)
+        while i_2 == i_1:
+            i_2 = random.randint(0, len(self.route) - 1)
+        self.swap(i_1, i_2)
 
     def calc_distance(self, city_coords, come_back=False):
         total_squared = 0
@@ -35,9 +49,9 @@ class Salesman:
             y_sq = (city_coords_2[1] - city_coords_1[1]) ** 2
             total_squared += x_sq + y_sq
 
-        self.distance_squared = total_squared
+        self.dist_sq = total_squared
 
-    def combine_with(self, other):
+    def combine_with(self, other, mutation):
         # TODO: MAKE SURE HAS SAME AMOUNT OF CITITES
         # Mutation
         new_route = []
@@ -55,11 +69,53 @@ class Salesman:
                         new_route.append(next_city)
                         last_from_self = not last_from_self
                         break
-        return new_route
+        new_salesman = Salesman(len(new_route), route=new_route)
+        max_swaps = 10
+        swaps = 0
+        while (random.random() < mutation):
+            new_salesman.swap_random()
+            swaps += 1
+            if (swaps > max_swaps):
+                break
+        return new_salesman
 
 
 class Population:
     population = []
+    cities = []
 
-    def __init__(self, size):
-        pass
+    def __init__(self, size, cities):
+        self.cities = cities
+        for i in range(size):
+            self.population.append(Salesman(len(cities)))
+
+    def get_sorted_population(self):
+        sorted_population = []
+        for sm in self.population:
+            sm.calc_distance(self.cities)
+            index = 0
+            for i in range(len(sorted_population)):
+                # Smallest distance first
+                if (sorted_population[i].dist_sq > sm.dist_sq):
+                    break
+                index += 1
+            sorted_population.insert(index, sm)
+        return sorted_population
+
+    # Returns best route
+    def generate_next_population(self, mutation):
+        new_population = []
+        sorted_population = self.get_sorted_population()
+
+        new_population.append(sorted_population[0])
+        new_population.append(Salesman(len(self.cities)))
+        new_population.append(Salesman(len(self.cities)))
+        new_population.append(Salesman(len(self.cities)))
+        new_population.append(Salesman(len(self.cities)))
+
+        # TODO: COMBINE MORE THAN BEST 2
+        while len(new_population) < len(self.population):
+            new_population.append(sorted_population[0].combine_with(
+                sorted_population[1], mutation))
+        self.population = new_population
+        return new_population[0]
