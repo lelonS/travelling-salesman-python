@@ -49,7 +49,7 @@ cities = []
 
 # Loop
 running = True
-look_for_path = False
+all_cities_added = False
 
 
 # Make screen
@@ -67,16 +67,15 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif pygame.mouse.get_pressed()[0] and not look_for_path:
+        elif pygame.mouse.get_pressed()[0] and not all_cities_added:
             pos = pygame.mouse.get_pos()
-            print(pos)
             cities.append(pos)
             draw_cities(cities)
         elif pygame.mouse.get_pressed()[2]:
-            look_for_path = True
+            all_cities_added = True
 
     # Stuff
-    if look_for_path:
+    if all_cities_added:
         draw_route(list(range(len(cities))), cities)
 
     update()
