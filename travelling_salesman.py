@@ -11,17 +11,29 @@ def update():
     pygame.display.flip()
 
 
-def draw_cities(cityPos, cityNumber=True):
+def draw_cities(city_pos, city_number=True):
+    global screen
     myFont = pygame.font.Font(None, 20)
 
-    for position in cityPos:
+    for position in city_pos:
+        # Draw point
         pygame.draw.circle(screen, (255, 255, 255), position, 2)
 
-        if cityNumber:
-            text = str(cityPos.index(position))
+        # Draw index
+        if city_number:
+            text = str(city_pos.index(position))
             renderFont = myFont.render(text, 1, (255, 255, 255))
             screen.blit(renderFont, (position[0]+4, position[1]+4))
-    update()
+
+
+def draw_route(route, city_pos):
+    global screen
+    # print(route)
+    for i in range(len(route)-1):
+        c_id_1 = route[i]
+        c_id_2 = route[i + 1]
+        pygame.draw.line(screen, (255, 255, 255),
+                         city_pos[c_id_1], city_pos[c_id_2], width=1)
 
 
 # Colors
@@ -32,27 +44,43 @@ BLACK = (0, 0, 0)
 WIDTH = 500
 HEIGHT = 500
 
-# Make screen
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-screen.fill(BLACK)
-update()
-
 # Variables
 cities = []
 
 # Loop
 running = True
+look_for_path = False
+
+
+# Make screen
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen.fill(BLACK)
+update()
+
 
 while running:
+    # Clear screen
+    screen.fill(BLACK)
+    draw_cities(cities)
+
     # Get events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif pygame.mouse.get_pressed()[0]:
+        elif pygame.mouse.get_pressed()[0] and not look_for_path:
             pos = pygame.mouse.get_pos()
             print(pos)
             cities.append(pos)
             draw_cities(cities)
+        elif pygame.mouse.get_pressed()[2]:
+            look_for_path = True
+
+    # Stuff
+    if look_for_path:
+        draw_route(list(range(len(cities))), cities)
+
+    update()
+
 
 # Quit
 print("Quitting")
