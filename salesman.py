@@ -41,7 +41,7 @@ class Salesman:
             else:
                 route_check = other.route if last_from_self else self.route
                 index = route_check.index(new_route[-1])
-                while index < len(route_check):
+                while index < len(route_check) * 3:
                     next_city = route_check[(index + 1) % len(route_check)]
                     index += 1
                     if next_city not in new_route:
