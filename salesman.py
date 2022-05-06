@@ -6,7 +6,13 @@ class Salesman:
     route = []
     distance_squared = -1
 
-    def __init__(self, amount_cities, random_path=True):
+    def __init__(self, amount_cities, random_path=True, route=[]):
+        # Create from premade route
+        if route != []:
+            self.route = route
+            return
+
+        # Create route
         self.route = []
         for i in range(amount_cities):
             self.route.append(i)
