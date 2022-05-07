@@ -36,6 +36,14 @@ def draw_route(route, city_pos, route_color=(255, 255, 255), thickness=1):
                          city_pos[c_id_1], city_pos[c_id_2], width=thickness)
 
 
+def draw_distance(distance, color, pos):
+    global screen
+    myFont = pygame.font.Font(None, 20)
+    text = str(distance)
+    renderFont = myFont.render(text, 1, color)
+    screen.blit(renderFont, pos)
+
+
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -81,10 +89,15 @@ while running:
 
     # Stuff
     if all_cities_added:
-        draw_route(population.generate_next_population(
-            0.6).route, cities, thickness=3)
-        draw_route(random_tester.test_random_route(),
-                   cities, route_color=(0, 0, 255), thickness=1)
+        best_salesman = population.generate_next_population(0.6)
+        pop_route = best_salesman.route
+        random_route = random_tester.test_random_route()
+
+        draw_route(pop_route, cities, route_color=(255, 255, 255), thickness=3)
+        draw_route(random_route, cities, route_color=(0, 0, 255), thickness=1)
+
+        draw_distance(best_salesman.dist_sq, (255, 255, 255), (10, 10))
+        draw_distance(random_tester.best_dist_sq, (0, 0, 255), (10, 30))
 
     update()
 
