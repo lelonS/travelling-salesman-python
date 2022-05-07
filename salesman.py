@@ -83,6 +83,7 @@ class Salesman:
 class Population:
     population = []
     cities = []
+    generation = 0
 
     def __init__(self, size, cities):
         self.cities = cities
@@ -118,4 +119,7 @@ class Population:
             new_population.append(sorted_population[0].combine_with(
                 sorted_population[1], mutation))
         self.population = new_population
+        self.generation += 1
+        if self.generation % 100 == 0:
+            print(self.generation)
         return new_population[0]
