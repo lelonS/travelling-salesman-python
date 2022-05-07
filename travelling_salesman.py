@@ -1,8 +1,8 @@
 import pygame
 # import math
 # import random
-from salesman import Population
-from bruteforce import Bruteforce
+from classes.salesman import Population
+from classes.bruteforce import Bruteforce
 
 pygame.init()
 
