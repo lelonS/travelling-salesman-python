@@ -36,10 +36,10 @@ def draw_route(route, city_pos, route_color=(255, 255, 255), thickness=1):
                          city_pos[c_id_1], city_pos[c_id_2], width=thickness)
 
 
-def draw_distance(distance, color, pos):
+def draw_text(t, color, pos):
     global screen
     myFont = pygame.font.Font(None, 20)
-    text = str(distance)
+    text = str(t)
     renderFont = myFont.render(text, 1, color)
     screen.blit(renderFont, pos)
 
@@ -83,6 +83,7 @@ while running:
             cities.append(pos)
             draw_cities(cities)
         elif pygame.mouse.get_pressed()[2]:
+            # print(random_tester.best_route)
             all_cities_added = True
             population = Population(population_size, cities)
             random_tester = Bruteforce(cities)
@@ -96,8 +97,10 @@ while running:
         draw_route(pop_route, cities, route_color=(255, 255, 255), thickness=3)
         draw_route(random_route, cities, route_color=(0, 0, 255), thickness=1)
 
-        draw_distance(best_salesman.dist_sq, (255, 255, 255), (10, 10))
-        draw_distance(random_tester.best_dist_sq, (0, 0, 255), (10, 30))
+        draw_text(best_salesman.dist_sq, (255, 255, 255), (10, 10))
+        draw_text(random_tester.best_dist_sq, (0, 0, 255), (10, 30))
+        draw_text("gen " + str(population.generation),
+                  (255, 255, 255), (10, 50))
 
     update()
 

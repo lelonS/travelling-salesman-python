@@ -121,6 +121,5 @@ class Population:
                 sorted_population[i], mutation))
         self.population = new_population
         self.generation += 1
-        if self.generation % 100 == 0:
-            print(self.generation)
+
         return new_population[0]

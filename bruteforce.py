@@ -10,6 +10,7 @@ class Bruteforce:
 
     def __init__(self, city_coords):
         self.city_coords = city_coords
+        self.current_route = []
         for i in range(len(city_coords)):
             self.current_route.append(i)
 
