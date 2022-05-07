@@ -1,6 +1,6 @@
 import pygame
-import math
-import random
+# import math
+# import random
 from salesman import Population
 from bruteforce import Bruteforce
 
@@ -17,7 +17,7 @@ def draw_cities(city_pos, city_number=True):
 
     for position in city_pos:
         # Draw point
-        pygame.draw.circle(screen, (255, 255, 255), position, 2)
+        pygame.draw.circle(screen, (255, 0, 0), position, 2)
 
         # Draw index
         if city_number:
