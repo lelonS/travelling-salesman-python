@@ -24,15 +24,16 @@ class Bruteforce:
         if dist_sq > self.best_dist_sq:
             self.best_route = route
             self.best_dist_sq = dist_sq
+        return self.best_route
 
     def get_dist_sq(self, route, come_back=False):
         total_squared = 0
 
         k = 0 if come_back else 1
 
-        for i in range(len(self.route) - k):
-            city_id_1 = self.route[i]
-            city_id_2 = self.route[(i + 1) % len(self.route)]
+        for i in range(len(route) - k):
+            city_id_1 = route[i]
+            city_id_2 = route[(i + 1) % len(route)]
 
             city_coords_1 = self.city_coords[city_id_1]
             city_coords_2 = self.city_coords[city_id_2]
@@ -41,6 +42,4 @@ class Bruteforce:
             y_sq = (city_coords_2[1] - city_coords_1[1]) ** 2
             total_squared += x_sq + y_sq
 
-        if total_squared > self.best_dist_sq:
-            self.best_dist_sq = total_squared
-            self.best_route = route
+        return total_squared
