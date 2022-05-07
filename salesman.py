@@ -53,7 +53,6 @@ class Salesman:
 
     def combine_with(self, other, mutation):
         # TODO: MAKE SURE HAS SAME AMOUNT OF CITITES
-        # Mutation
         new_route = []
         last_from_self = True
         for i in range(len(self.route)):
@@ -115,9 +114,11 @@ class Population:
         new_population.append(Salesman(len(self.cities)))
 
         # TODO: COMBINE MORE THAN BEST 2
+        i = 0
         while len(new_population) < len(self.population):
+            i += 1
             new_population.append(sorted_population[0].combine_with(
-                sorted_population[1], mutation))
+                sorted_population[i], mutation))
         self.population = new_population
         self.generation += 1
         if self.generation % 100 == 0:

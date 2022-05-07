@@ -49,8 +49,8 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 # Window dimensions
-WIDTH = 500
-HEIGHT = 500
+WIDTH = 800
+HEIGHT = 700
 
 # Variables
 cities = []
