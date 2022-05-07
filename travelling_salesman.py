@@ -84,7 +84,7 @@ while running:
         draw_route(population.generate_next_population(
             0.4).route, cities, thickness=3)
         draw_route(random_tester.test_random_route(),
-                   cities, route_color=(0, 0, 255), thickness=1)
+                   cities, route_color=(0, 0, 255), thickness=2)
 
     update()
 
