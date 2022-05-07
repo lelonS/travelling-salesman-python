@@ -3,7 +3,7 @@ import random
 
 class Bruteforce:
     best_route = []
-    best_dist_sq = -1
+    best_dist_sq = 10000000000
 
     current_route = []
     city_coords = []
@@ -20,8 +20,7 @@ class Bruteforce:
         route = self.current_route.copy()
         random.shuffle(route)
         dist_sq = self.get_dist_sq(route)
-
-        if dist_sq > self.best_dist_sq:
+        if dist_sq < self.best_dist_sq:
             self.best_route = route
             self.best_dist_sq = dist_sq
         return self.best_route
