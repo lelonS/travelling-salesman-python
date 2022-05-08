@@ -8,7 +8,7 @@ pygame.init()
 
 
 def update():
-    pygame.display.flip()
+    pygame.display.update()
 
 
 def draw_cities(city_pos, city_number=True):
