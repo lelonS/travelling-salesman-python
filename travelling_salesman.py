@@ -3,6 +3,7 @@ import pygame
 # import random
 from classes.salesman import Population
 from classes.bruteforce import Bruteforce
+from classes.csv_writing import csv_writing
 
 pygame.init()
 
@@ -58,6 +59,8 @@ population_size = 100
 population = None
 random_tester = None
 
+csv_writer = csv_writing("csv_files/test.csv", open_path=True)
+
 # Loop
 running = True
 all_cities_added = False
@@ -102,9 +105,13 @@ while running:
         draw_text("gen " + str(population.generation),
                   (255, 255, 255), (10, 50))
 
+        if population.generation % 20 == 0:
+            csv_writer.add_line([population.generation, best_salesman.dist_sq])
+
     update()
 
 
 # Quit
+csv_writer.close_file()
 print("Quitting")
 pygame.quit()
