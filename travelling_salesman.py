@@ -59,7 +59,7 @@ population_size = 100
 population = None
 random_tester = None
 
-csv_writer = csv_writing("csv_files/test.csv", open_path=True)
+csv_writer = None
 
 # Loop
 running = True
@@ -90,6 +90,8 @@ while running:
             all_cities_added = True
             population = Population(population_size, cities)
             random_tester = Bruteforce(cities)
+            csv_writer = csv_writing(
+                "csv_files/pop_size" + str(population_size) + ".csv", open_path=True)
 
     # Stuff
     if all_cities_added:
