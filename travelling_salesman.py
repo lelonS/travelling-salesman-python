@@ -115,5 +115,5 @@ while running:
 
 # Quit
 csv_writer.close_file()
-print("Quitting")
+print("Quitting now")
 pygame.quit()
